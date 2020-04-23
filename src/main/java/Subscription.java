@@ -1,7 +1,6 @@
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "subscriptions")
@@ -11,32 +10,20 @@ public class Subscription implements Serializable {
     public Subscription(){}
 
     public Subscription(CompoundKey compoundKey) {
-        studentID = compoundKey.getStudentID();
-        courseID = compoundKey.getCourseID();
+        student = compoundKey.getStudent();
+        course = compoundKey.getCourse();
     }
 
     @Id
-    @AttributeOverrides({
-            @AttributeOverride(name = "studentID",
-                    column = @Column(name="student_id")),
-            @AttributeOverride(name = "courseID",
-                    column = @Column(name="couse_id"))
-    })
+    @OneToOne
+    private Student student;
 
-    @Column(name = "student_id")
-    private int studentID;
-
-    @Column(name = "course_id")
-    private int courseID;
+    @Id
+    @OneToOne
+    private Course course;
 
     @Column(name = "subscription_date")
     private Date subscriptionDate;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "purchaselist",
-            joinColumns = {@JoinColumn(name = "student_name"), @JoinColumn(name = "course_name")},
-            inverseJoinColumns = {@JoinColumn(name = "subscription_date")})
-    Student student;
 
     public Student getStudent() {
         return student;
@@ -46,6 +33,14 @@ public class Subscription implements Serializable {
         this.student = student;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public Date getSubscriptionDate() {
         return subscriptionDate;
     }
@@ -53,20 +48,5 @@ public class Subscription implements Serializable {
     public void setSubscription_date(Date subscription_date) {
         this.subscriptionDate = subscription_date;
     }
-
-    public int getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
-    }
-
-    public int getCourseID() {
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
 }
+

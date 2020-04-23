@@ -1,33 +1,35 @@
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Embeddable
 public class CompoundKey implements Serializable {
 
-    private int studentID;
-    private int courseID;
+    @OneToOne
+    private Student student;
+
+    @OneToOne
+    private Course course;
 
     public CompoundKey(){}
 
-    public CompoundKey(int studentID, int courseID) {
-        this.studentID = studentID;
-        this.courseID = courseID;
+    public CompoundKey(Student student, Course course) {
+        this.course = course;
+        this.student = student;
     }
 
-    public int getStudentID() {
-        return studentID;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public int getCourseID() {
-        return courseID;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
