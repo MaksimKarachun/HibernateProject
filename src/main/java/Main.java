@@ -22,7 +22,7 @@ public class Main {
 
         System.out.printf("%-10s%-40s%-10s%-15s%-10s%-10s%n", "id", "Course name", "Duration", "Type", "Price", "Price per hour");
         System.out.println("---------------------------------------------------------------------------------------------------");
-        for(int i = 1; i < rowCount; i++){
+        for(int i = 1; i <= rowCount; i++){
             Course course = session.get(Course.class, i);
             System.out.printf("%-10d%-40s%-10d%-15s%-10d%-10.2f%n",
                     course.getId(),

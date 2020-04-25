@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.Optional;
 
 
 @Entity
@@ -23,7 +24,7 @@ public class Course {
     private Teacher teacher;
 
     @Column(name = "students_count")
-    private int studentsCount;
+    private Integer studentsCount;
 
     private int price;
 
@@ -40,6 +41,7 @@ public class Course {
         this.id = id;
     }
 
+
     public String getName() {
         return name;
     }
@@ -47,6 +49,7 @@ public class Course {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public int getDuration() {
         return duration;
@@ -56,21 +59,23 @@ public class Course {
         this.duration = duration;
     }
 
-    public CourseType getType() {
-        return type;
-    }
+
+    public CourseType getType() { return type; }
 
     public void setType(CourseType type) {
         this.type = type;
     }
+
 
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        Optional<String> optional = Optional.ofNullable(description);
+        this.description = optional.orElse("");
     }
+
 
     public Teacher getTeacher() {
         return teacher;
@@ -80,13 +85,16 @@ public class Course {
         this.teacher = teacher;
     }
 
+
     public int getStudentsCount() {
         return studentsCount;
     }
 
-    public void setStudentsCount(int studentsCount) {
-        this.studentsCount = studentsCount;
+    public void setStudentsCount(Integer studentsCount) {
+        Optional<Integer> optional = Optional.ofNullable(studentsCount);
+        this.studentsCount = optional.orElse(0);
     }
+
 
     public int getPrice() {
         return price;
@@ -95,6 +103,7 @@ public class Course {
     public void setPrice(int price) {
         this.price = price;
     }
+
 
     public float getPricePerHour() {
         return pricePerHour;
