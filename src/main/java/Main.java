@@ -1,10 +1,15 @@
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 
 public class Main {
@@ -33,6 +38,7 @@ public class Main {
                     course.getPricePerHour());
         }
 
+
         System.out.println();
         Course course = session.get(Course.class, 1);
         Student student = session.get(Student.class, 2);
@@ -40,6 +46,28 @@ public class Main {
         Subscription subscription = session.get(Subscription.class, compoundKey);
         System.out.println("Дата подписки студента " + subscription.getStudent().getName() +
                 " на курс " + subscription.getCourse().getName() + " " + subscription.getSubscriptionDate());
+
+        //get list of subscriptions
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Subscription> query = builder.createQuery(Subscription.class);
+        Root<Subscription> root = query.from(Subscription.class);
+        query.select(root);
+        List<Subscription> subscriptionList = session.createQuery(query).getResultList();
+
+        //filling in linked_purchase_list table fields
+        for(Subscription currentSubscription : subscriptionList){
+            Transaction transaction = session.beginTransaction();
+            LinkedPurchaseList purchase = new LinkedPurchaseList();
+            purchase.setStudentId(currentSubscription.getStudent().getId());
+            purchase.setCourseId(currentSubscription.getCourse().getId());
+            purchase.setPrice(currentSubscription.getCourse().getPrice());
+            purchase.setSubscriptionDate(currentSubscription.getSubscriptionDate());
+            session.save(purchase);
+            transaction.commit();
+        }
+
+        session.close();
+        sessionFactory.close();
 
     }
 }
