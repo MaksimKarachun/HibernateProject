@@ -1,5 +1,5 @@
+
 import javax.persistence.*;
-import java.util.Optional;
 
 
 @Entity
@@ -8,11 +8,11 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
 
-    private int duration;
+    private Integer duration;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
@@ -26,7 +26,7 @@ public class Course {
     @Column(name = "students_count")
     private Integer studentsCount;
 
-    private int price;
+    private Integer price;
 
     @Column(name = "price_per_hour")
     private float pricePerHour;
@@ -37,7 +37,7 @@ public class Course {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +51,11 @@ public class Course {
     }
 
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -72,8 +72,7 @@ public class Course {
     }
 
     public void setDescription(String description) {
-        Optional<String> optional = Optional.ofNullable(description);
-        this.description = optional.orElse("");
+        this.description = description;
     }
 
 
@@ -86,13 +85,12 @@ public class Course {
     }
 
 
-    public int getStudentsCount() {
+    public Integer getStudentsCount() {
         return studentsCount;
     }
 
     public void setStudentsCount(Integer studentsCount) {
-        Optional<Integer> optional = Optional.ofNullable(studentsCount);
-        this.studentsCount = optional.orElse(0);
+        this.studentsCount = studentsCount;
     }
 
 

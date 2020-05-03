@@ -4,9 +4,9 @@ import java.io.Serializable;
 @Embeddable
 public class CompositeKey implements Serializable {
 
-    private int studentId;
+    private Integer studentId;
 
-    private int courseId;
+    private Integer courseId;
 
     public CompositeKey(){}
 
@@ -15,19 +15,19 @@ public class CompositeKey implements Serializable {
         this.studentId = studentId;
     }
 
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 }

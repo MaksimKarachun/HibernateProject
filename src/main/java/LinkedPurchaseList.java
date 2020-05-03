@@ -15,47 +15,55 @@ public class LinkedPurchaseList {
 
     @Id
     @Column(name = "student_id")
-    private int studentId;
+    private Integer studentId;
 
     @Id
     @Column(name = "course_id")
-    private int courseId;
+    private Integer courseId;
 
-    @Column(name = "price")
-    private int price;
+    @Column(name = "student_name")
+    String studentName;
 
-    @Column(name = "subscription_date")
-    private Date subscriptionDate;
+    @Column(name = "course_name")
+    String courseName;
 
-    public int getStudentId() {
+    @OneToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
+    Student student;
+
+    @OneToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
+    Course course;
+
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
-    public int getPrice() {
-        return price;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public Date getSubscriptionDate() {
-        return subscriptionDate;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setSubscriptionDate(Date subscriptionDate) {
-        this.subscriptionDate = subscriptionDate;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }
